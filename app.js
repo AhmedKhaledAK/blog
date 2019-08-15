@@ -19,6 +19,10 @@ app.get("/", function(req, res){
   res.render("home", {homeContent: homeStartingContent});
 });
 
+app.get("/home", function(req, res){
+  res.redirect("/");
+});
+
 app.get("/about", function(req, res){
   res.render("about", {aboutContent: aboutContent});
 });
