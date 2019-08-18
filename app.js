@@ -11,6 +11,7 @@ const aboutContent = "This is some dummy About content";
 const contactContent = "This is some dummy Contact content";
 
 let posts = [];
+let map = new Map();
 
 app.set('view engine', 'ejs');
 
@@ -20,6 +21,7 @@ app.use(express.static("public"));
 app.get("/", function(req, res){
   res.render("home", {homeContent: homeStartingContent, posts: posts});
   //console.log(posts);
+  console.log(map);
 });
 
 app.get("/home", function(req, res){
@@ -50,6 +52,7 @@ app.post("/compose", function(req, res){
 
   if(req.body.postTitle && req.body.postContent){
     posts.push(post);
+    map.set(post.title, post.body);
   } else {
     res.send("Post not submitted! Missing the title or the body.");
   }
