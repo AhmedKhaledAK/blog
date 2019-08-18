@@ -1,4 +1,10 @@
 <%- include("partials/header") %>
 <h1>Home</h1>
 <p> <%= homeContent %> </p>
+
+<% for(i = 0; i < posts.length; i++){ %>
+  <h1> <%= posts[i].title %> </h1>
+  <p> <%= posts[i].body %> </p>
+<% } %>
+
 <%- include("partials/footer") %>
