@@ -52,7 +52,7 @@ app.post("/compose", function(req, res){
 
   if(req.body.postTitle && req.body.postContent){
     posts.push(post);
-    map.set(post.title, post.body);
+    map.set(post.title.toLowerCase(), post.body);
   } else {
     res.send("Post not submitted! Missing the title or the body.");
   }
@@ -61,7 +61,7 @@ app.post("/compose", function(req, res){
 
 app.get("/posts/:postTitle", function(req, res){
   console.log(req.params.postTitle);
-  if(map.get(req.params.postTitle)){
+  if(map.get(req.params.postTitle.toLowerCase())){
     console.log("match found");
   } else {
     res.send("This post does not exist!");
