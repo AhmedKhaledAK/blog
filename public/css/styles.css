@@ -33,3 +33,14 @@
 	font-size: 12px;
   color: #fff;
 }
+
+.post-title {
+  margin-top: 3%;
+}
+
+.post-content {
+  margin-top: 1%;
+}
+.btn-publish {
+  margin-top: 1%;
+}

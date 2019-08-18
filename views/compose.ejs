@@ -1,7 +1,8 @@
 <%- include("partials/header") %>
 <h1>Compose a New Post</h1>
 <form action="/compose" method="post">
-  <input type="text" name="postTitle" placeholder="Type your post here...">
-  <button type="submit" name="publishBtn" value="publish">Publish</button>
+  <input type="text" class="form-control post-title" name="postTitle" placeholder="Title">
+  <textarea class="form-control post-content" name="postContent" placeholder="Content" rows="20"></textarea>
+  <button type="button" class="btn btn-primary btn-publish" name="publishBtn" value="publish">Publish</button>
 </form>
 <%- include("partials/footer") %>
