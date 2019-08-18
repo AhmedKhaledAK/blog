@@ -63,6 +63,8 @@ app.get("/posts/:postTitle", function(req, res){
   console.log(req.params.postTitle);
   if(map.get(req.params.postTitle)){
     console.log("match found");
+  } else {
+    res.send("This post does not exist!");
   }
 });
 
