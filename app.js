@@ -61,6 +61,9 @@ app.post("/compose", function(req, res){
 
 app.get("/posts/:postTitle", function(req, res){
   console.log(req.params.postTitle);
+  if(map.get(req.params.postTitle)){
+    console.log("match found");
+  }
 });
 
 app.listen(3000, function() {
