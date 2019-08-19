@@ -67,7 +67,7 @@ app.post("/compose", function(req, res){
 app.get("/posts/:postTitle", function(req, res){
   console.log(req.params.postTitle);
 
-  let key = req.params.postTitle.toLowerCase();
+  let key = req.params.postTitle.trimEnd().toLowerCase().split(" ").join("-");
   if(map.get(key)){
     // let index = map.get(req.params.postTitle.toLowerCase()).index;
     console.log("match found");
