@@ -47,7 +47,7 @@
   margin-top: 1%;
 }
 
-#pad{
+#editor{
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
     border: 1px solid black;
 }
@@ -57,4 +57,8 @@
     height: 606px;
     max-height: 606px;
     overflow-y: scroll;
+}
+
+#hiddenTextArea {
+  display: none;
 }

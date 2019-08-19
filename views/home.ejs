@@ -9,7 +9,7 @@
 
 <% postMap.forEach(function(value, key){ %>
   <h1> <%= key %> </h1>
-  <p> <%= value.substring(0,101); %>... <a href="/posts/<%= key %>" >Read more</a></p>
+  <%- value.substring(0,101); %>... <a href="/posts/<%= key %>" >Read more</a></p>
 <% }); %>
 
 <%- include("partials/footer") %>

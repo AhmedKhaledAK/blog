@@ -3,8 +3,10 @@
 <form action="/compose" method="post">
   <section class="row">
     <input type="text" class="form-control post-title" name="postTitle" placeholder="Title">
-    <textarea class="col-md-6" id="pad" rows="30"  name="postContent">Write your text here..</textarea>
+    <textarea class="col-md-6" id="editor" rows="30" placeholder="Write your markdown here..."></textarea>
     <div class="col-md-6" id="markdown"></div>
+    <!-- a textarea just for holding html content to be viewed correctly to the user, display: none-->
+    <textarea id="hiddenTextArea"  name="postContent"></textarea>
     <button type="submit" class="btn btn-primary btn-publish" name="publishBtn" value="publish">Publish</button>
   </section>
 </form>
