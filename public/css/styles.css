@@ -54,4 +54,7 @@
 
 #markdown {
     border: 1px solid black;
+    height: 606px;
+    max-height: 606px;
+    overflow-y: scroll;
 }
