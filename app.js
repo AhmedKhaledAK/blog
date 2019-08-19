@@ -10,8 +10,9 @@ const homeStartingContent = "This is some dummy Home content";
 const aboutContent = "This is some dummy About content";
 const contactContent = "This is some dummy Contact content";
 
-let posts = [];
+// let posts = [];
 let map = new Map();
+let postMap = new Map();
 
 app.set('view engine', 'ejs');
 
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/", function(req, res){
-  res.render("home", {homeContent: homeStartingContent, posts: posts});
+  res.render("home", {homeContent: homeStartingContent, postMap: postMap});
   //console.log(posts);
   console.log(map);
 });
@@ -43,7 +44,7 @@ app.get("/compose", function(req, res){
 app.post("/compose", function(req, res){
   //console.log(req.body);
   let post = {
-    title: req.body.postTitle,
+    title: req.body.postTitle.trimEnd(),
     body: req.body.postContent
   };
 
@@ -51,10 +52,12 @@ app.post("/compose", function(req, res){
   //console.log("post content: " + post.body);
 
   if(req.body.postTitle && req.body.postContent){
-    posts.push(post);
+    // posts.push(post);
+    // will be using this map so we can delete a post alot faster
+    postMap.set(post.title, post.body);
     // since the titles are not large enough, this will perform very well
-    let title = post.title.trimEnd().toLowerCase().split(" ").join("-");
-    map.set(title, {body: post.body, index: posts.length-1});
+    let title = post.title.toLowerCase().split(" ").join("-");
+    map.set(title, {body: post.body, orgTitle: post.title});
   } else {
     res.send("Post not submitted! Missing the title or the body.");
   }
@@ -64,10 +67,11 @@ app.post("/compose", function(req, res){
 app.get("/posts/:postTitle", function(req, res){
   console.log(req.params.postTitle);
 
-  if(map.get(req.params.postTitle.toLowerCase())){
-    let index = map.get(req.params.postTitle.toLowerCase()).index;
-    console.log("match found: " + index);
-    res.render("post", {postTitle: posts[index].title, postContent: posts[index].body});
+  let key = req.params.postTitle.toLowerCase();
+  if(map.get(key)){
+    // let index = map.get(req.params.postTitle.toLowerCase()).index;
+    console.log("match found");
+    res.render("post", {postTitle: map.get(key).orgTitle, postContent: map.get(key).body});
   } else {
     res.send("This post does not exist!");
   }

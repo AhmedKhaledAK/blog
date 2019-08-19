@@ -2,9 +2,14 @@
 <h1>Home</h1>
 <p> <%= homeContent %> </p>
 
-<% for(i = 0; i < posts.length; i++){ %>
-  <h1> <%= posts[i].title %> </h1>
-  <p> <%= posts[i].body %> </p>
-<% } %>
+<!-- <%# for(i = 0; i < posts.length; i++){ %>
+  <h1> <%# posts[i].title %> </h1>
+  <p> <%# posts[i].body %> </p>
+<%# } %> -->
+
+<% postMap.forEach(function(value, key){ %>
+  <h1> <%= key %> </h1>
+  <p> <%= value %> </p>
+<% }); %>
 
 <%- include("partials/footer") %>
