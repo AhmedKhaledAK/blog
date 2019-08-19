@@ -1,8 +1,12 @@
+
 <%- include("partials/header") %>
-<h1>Compose a New Post</h1>
 <form action="/compose" method="post">
-  <input type="text" class="form-control post-title" name="postTitle" placeholder="Title">
-  <textarea class="form-control post-content" name="postContent" placeholder="Content" rows="20"></textarea>
-  <button type="submit" class="btn btn-primary btn-publish" name="publishBtn" value="publish">Publish</button>
+  <section class="row">
+    <input type="text" class="form-control post-title" name="postTitle" placeholder="Title">
+    <textarea class="col-md-6" id="pad" rows="30">Write your text here..</textarea>
+    <textarea class="col-md-6" id="markdown" rows="30"></textarea>
+    <button type="submit" class="btn btn-primary btn-publish" name="publishBtn" value="publish">Publish</button>
+  </section>
 </form>
-<%- include("partials/footer") %>
+
+<%- include("partials/editorFooter") %>
