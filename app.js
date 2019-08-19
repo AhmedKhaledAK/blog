@@ -65,7 +65,9 @@ app.get("/posts/:postTitle", function(req, res){
   console.log(req.params.postTitle);
 
   if(map.get(req.params.postTitle.toLowerCase())){
-    console.log("match found: " + map.get(req.params.postTitle.toLowerCase()).index);
+    let index = map.get(req.params.postTitle.toLowerCase()).index;
+    console.log("match found: " + index);
+    res.render("post", {postTitle: posts[index].title, postContent: posts[index].body});
   } else {
     res.send("This post does not exist!");
   }
