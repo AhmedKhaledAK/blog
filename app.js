@@ -58,10 +58,10 @@ app.post("/compose", function(req, res){
     // since the titles are not large enough, this will perform very well
     let title = post.title.toLowerCase().split(" ").join("-");
     map.set(title, {body: post.body, orgTitle: post.title});
+    res.redirect("/posts/"+title);
   } else {
     res.send("Post not submitted! Missing the title or the body.");
   }
-  res.redirect("/");
 });
 
 app.get("/posts/:postTitle", function(req, res){
