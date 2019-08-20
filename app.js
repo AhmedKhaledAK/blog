@@ -96,6 +96,11 @@ app.get("/posts/:postTitle", function(req, res){
   }
 });
 
+app.get("/email", function(req, res){
+  res.send("Send an email to: ahmedkhaledabab@gmail.com");
+});
+
+
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
