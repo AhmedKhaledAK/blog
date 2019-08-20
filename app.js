@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
+const github = require(__dirname+"/secret/github.js");
 const ejs = require("ejs");
 
 const app = express();
@@ -30,6 +31,28 @@ app.get("/home", function(req, res){
 });
 
 app.get("/about", function(req, res){
+
+  let options = {
+    url: "https://api.github.com/users/AhmedKhaledAK",
+    method: "GET",
+    headers: {
+      "User-Agent": github.getUser(),
+    },
+    auth: {
+      "user": github.getUser(),
+      "pass": github.getPassword()
+    }
+  };
+
+  request(options, function(error, response, body){
+    let dataObject = JSON.parse(body);
+    if(!error){
+      console.log(dataObject);
+    } else {
+      console.log(response.statusCode);
+    }
+  });
+
   res.render("about", {aboutContent: aboutContent});
 });
 
