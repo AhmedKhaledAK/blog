@@ -29,7 +29,7 @@ app.get("/home", function(req, res){
   res.redirect("/");
 });
 
-app.get("/about", function(req, res){
+app.get("/github", function(req, res){
 
   let options = {
     url: "https://api.github.com/users/AhmedKhaledAK/repos",
@@ -56,7 +56,7 @@ app.get("/about", function(req, res){
     }
   });
 
-  res.render("about", {repos: repos});
+  res.render("github", {repos: repos});
 });
 
 app.get("/contact", function(req, res){
