@@ -12,7 +12,6 @@ const homeStartingContent = "This is some dummy Home content";
 const aboutContent = "This is some dummy About content";
 const contactContent = "This is some dummy Contact content";
 
-// let posts = [];
 let map = new Map();
 let postMap = new Map();
 
