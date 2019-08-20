@@ -59,8 +59,8 @@ app.get("/github", function(req, res){
   res.render("github", {repos: repos});
 });
 
-app.get("/contact", function(req, res){
-  res.render("contact");
+app.get("/resume", function(req, res){
+  res.render("resume");
 });
 
 app.get("/compose", function(req, res){
