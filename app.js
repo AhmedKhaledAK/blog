@@ -57,7 +57,7 @@ app.post("/compose", function(req, res){
     postMap.set(post.title, post.body);
     // since the titles are not large enough, this will perform very well
     let title = post.title.toLowerCase().split(" ").join("-");
-    map.set(title, {body: post.body, orgTitle: post.title});
+    map.set(title, post);
     res.redirect("/posts/"+title);
   } else {
     res.send("Post not submitted! Missing the title or the body.");
@@ -71,7 +71,7 @@ app.get("/posts/:postTitle", function(req, res){
   if(map.get(key)){
     // let index = map.get(req.params.postTitle.toLowerCase()).index;
     console.log("match found");
-    res.render("post", {postTitle: map.get(key).orgTitle, postContent: map.get(key).body});
+    res.render("post", {postTitle: map.get(key).title, postContent: map.get(key).body});
   } else {
     res.send("This post does not exist!");
   }
