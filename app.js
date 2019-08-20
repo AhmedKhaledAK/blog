@@ -9,11 +9,11 @@ const ejs = require("ejs");
 const app = express();
 
 const homeStartingContent = "This is some dummy Home content";
-const aboutContent = "This is some dummy About content";
 const contactContent = "This is some dummy Contact content";
 
 let map = new Map();
 let postMap = new Map();
+let repos = [];
 
 app.set('view engine', 'ejs');
 
@@ -32,7 +32,7 @@ app.get("/home", function(req, res){
 app.get("/about", function(req, res){
 
   let options = {
-    url: "https://api.github.com/users/AhmedKhaledAK",
+    url: "https://api.github.com/users/AhmedKhaledAK/repos",
     method: "GET",
     headers: {
       "User-Agent": github.getUser(),
@@ -44,15 +44,19 @@ app.get("/about", function(req, res){
   };
 
   request(options, function(error, response, body){
+    repos = [];
     let dataObject = JSON.parse(body);
-    if(!error){
-      console.log(dataObject);
-    } else {
-      console.log(response.statusCode);
+    for(var i = 0; i < dataObject.length; i++){
+      let repoObject = {
+        name: dataObject[i].name,
+        description: dataObject[i].description,
+        html_url: dataObject[i].html_url
+      };
+      repos.push(repoObject);
     }
   });
 
-  res.render("about", {aboutContent: aboutContent});
+  res.render("about", {repos: repos});
 });
 
 app.get("/contact", function(req, res){
