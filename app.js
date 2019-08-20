@@ -9,7 +9,6 @@ const ejs = require("ejs");
 const app = express();
 
 const homeStartingContent = "This is some dummy Home content";
-const contactContent = "This is some dummy Contact content";
 
 let map = new Map();
 let postMap = new Map();
