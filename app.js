@@ -21,7 +21,6 @@ app.use(express.static("public"));
 
 app.get("/", function(req, res){
   res.render("home", {homeContent: homeStartingContent, postMap: postMap});
-  //console.log(posts);
   console.log(map);
 });
 
@@ -42,17 +41,12 @@ app.get("/compose", function(req, res){
 });
 
 app.post("/compose", function(req, res){
-  //console.log(req.body);
   let post = {
     title: req.body.postTitle.trimEnd(),
     body: req.body.postContent
   };
 
-  //console.log("post title: " + post.title);
-  //console.log("post content: " + post.body);
-
   if(req.body.postTitle && req.body.postContent){
-    // posts.push(post);
     // will be using this map so we can delete a post alot faster
     postMap.set(post.title, post.body);
     // since the titles are not large enough, this will perform very well
@@ -69,7 +63,6 @@ app.get("/posts/:postTitle", function(req, res){
 
   let key = req.params.postTitle.trimEnd().toLowerCase().split(" ").join("-");
   if(map.get(key)){
-    // let index = map.get(req.params.postTitle.toLowerCase()).index;
     console.log("match found");
     res.render("post", {postTitle: map.get(key).title, postContent: map.get(key).body});
   } else {
