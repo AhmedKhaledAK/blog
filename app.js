@@ -53,9 +53,10 @@ app.get("/github", function(req, res){
       };
       repos.push(repoObject);
     }
+    res.render("github", {repos: repos});
+
   });
 
-  res.render("github", {repos: repos});
 });
 
 app.get("/resume", function(req, res){
