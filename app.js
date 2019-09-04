@@ -30,8 +30,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/", function(req, res){
-  res.render("home", {homeContent: homeStartingContent, postMap: postMap});
-  console.log(map);
+
+  Post.find(function(err, posts){
+    posts.forEach(function(post){
+      postMap.set(post.postTitle, post.postContent);
+    });
+    res.render("home", {homeContent: homeStartingContent, postMap: postMap});
+  });
 });
 
 app.get("/home", function(req, res){
@@ -85,10 +90,10 @@ app.post("/compose", function(req, res){
 
   if(req.body.postTitle && req.body.postContent){
     // will be using this map so we can delete a post alot faster
-    postMap.set(post.title, post.body);
+    //postMap.set(post.title, post.body);
     // since the titles are not large enough, this will perform very well
-    let title = post.title.toLowerCase().split(" ").join("-");
-    map.set(title, post);
+    //let title = post.title.toLowerCase().split(" ").join("-");
+    //map.set(title, post);
 
     const postInDB = new Post({
       postTitle: post.title,
