@@ -5,8 +5,18 @@ const bodyParser = require("body-parser");
 const request = require("request");
 const github = require(__dirname+"/secret/github.js");
 const ejs = require("ejs");
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://localhost:27017/akblogdb", {useNewUrlParser: true});
 
 const app = express();
+
+const postSchema = new mongoose.Schema({
+  postTitle: String,
+  postContent: String
+});
+
+const Post = mongoose.model("Post", postSchema);
 
 const homeStartingContent = "This is some dummy Home content";
 
@@ -79,7 +89,10 @@ app.post("/compose", function(req, res){
     // since the titles are not large enough, this will perform very well
     let title = post.title.toLowerCase().split(" ").join("-");
     map.set(title, post);
-    res.redirect("/posts/"+title);
+
+    
+
+    res.redirect("/posts/"+post.title);
   } else {
     res.send("Post not submitted! Missing the title or the body.");
   }
