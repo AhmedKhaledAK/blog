@@ -90,7 +90,11 @@ app.post("/compose", function(req, res){
     let title = post.title.toLowerCase().split(" ").join("-");
     map.set(title, post);
 
-    
+    const postInDB = new Post({
+      postTitle: post.title,
+      postContent: post.body
+    });
+    postInDB.save();
 
     res.redirect("/posts/"+post.title);
   } else {
