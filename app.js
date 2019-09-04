@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/", function(req, res){
-
+  postMap.clear();
   Post.find(function(err, posts){
     posts.forEach(function(post){
       postMap.set(post.postTitle, post.postContent);
@@ -89,12 +89,7 @@ app.post("/compose", function(req, res){
   };
 
   if(req.body.postTitle && req.body.postContent){
-    // will be using this map so we can delete a post alot faster
-    //postMap.set(post.title, post.body);
-    // since the titles are not large enough, this will perform very well
-    //let title = post.title.toLowerCase().split(" ").join("-");
-    //map.set(title, post);
-
+    postMap.set(post.title, post.body);
     const postInDB = new Post({
       postTitle: post.title,
       postContent: post.body
@@ -110,10 +105,10 @@ app.post("/compose", function(req, res){
 app.get("/posts/:postTitle", function(req, res){
   console.log(req.params.postTitle);
 
-  let key = req.params.postTitle.trimEnd().toLowerCase().split(" ").join("-");
-  if(map.get(key)){
+  let key = req.params.postTitle.trimEnd();
+  if(postMap.get(key)){
     console.log("match found");
-    res.render("post", {postTitle: map.get(key).title, postContent: map.get(key).body});
+    res.render("post", {postTitle: key, postContent: postMap.get(key)});
   } else {
     res.send("This post does not exist!");
   }
