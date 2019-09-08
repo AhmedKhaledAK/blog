@@ -13,9 +13,9 @@ const app = express();
 
 const postSchema = new mongoose.Schema({
   postTitle: String,
+  postTitleLower: String,
   postContent: String
 });
-
 const Post = mongoose.model("Post", postSchema);
 
 const homeStartingContent = "This is some dummy Home content";
@@ -92,6 +92,7 @@ app.post("/compose", function(req, res){
     postMap.set(post.title, post.body);
     const postInDB = new Post({
       postTitle: post.title,
+      postTitleLower: post.title.toLowerCase(),
       postContent: post.body
     });
     postInDB.save();
@@ -106,12 +107,17 @@ app.get("/posts/:postTitle", function(req, res){
   console.log(req.params.postTitle);
 
   let key = req.params.postTitle.trimEnd();
-  if(postMap.get(key)){
-    console.log("match found");
-    res.render("post", {postTitle: key, postContent: postMap.get(key)});
-  } else {
-    res.send("This post does not exist!");
-  }
+
+  Post.find({'postTitleLower': key.toLowerCase()}, function(err, posts){
+    if(err) {
+      console.log(err);
+      res.send("This post does not exist!");
+    }
+    else {
+      console.log(posts);
+      res.render("post", {postTitle: key, postContent: posts[0].postContent});
+    }
+  });
 });
 
 app.get("/email", function(req, res){
